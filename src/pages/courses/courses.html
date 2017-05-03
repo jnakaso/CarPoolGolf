@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button round (click)="synch()">
+       <ion-icon name="cloud-download"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Courses</ion-title>
+    <ion-buttons end>
+      <button ion-button round (click)="create()">
+       <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="filter"></ion-searchbar>
+  <ion-list>
+    <ion-item-sliding class="" *ngFor="let course of filtered()">
+      <ion-item (click)="select(course)">
+        <h2>{{course.name}}</h2>
+        <p>rating / slope: {{course.rating}} / {{course.slope}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="delete(course)">
+          <ion-icon name="trash"></ion-icon>
+              Delete
+          </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

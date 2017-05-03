@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary">Cancel</span>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="submit()">
+        <span ion-text color="primary">Done</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Player</ion-label>
+      <ion-select [ngModel]="round.player" (ngModelChange)="changePlayer($event)">
+        <ion-option *ngFor="let player of players" value="{{player.name}}">{{player.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Handicap</ion-label>
+      <ion-input type="number" [ngModel]="round.hdcp" (ngModelChange)="changeHdcp($event)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Front</ion-label>
+      <ion-input type="number" [ngModel]="round.front" (ngModelChange)="changeFront($event)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Back</ion-label>
+      <ion-input type="number" [ngModel]="round.back" (ngModelChange)="changeBack($event)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Adjusted</ion-label>
+      <ion-input type="number" [(ngModel)]="round.adjusted"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3></ion-col>
+          <ion-col col-3><p>FRT</p></ion-col>
+          <ion-col col-3><p>BCK</p></ion-col>
+          <ion-col col-3><p>TOT</p></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3><p>Gross</p></ion-col>
+          <ion-col col-3 text-right>{{round.front}}</ion-col>
+          <ion-col col-3 text-right>{{round.back}}</ion-col>
+          <ion-col col-3 text-right>{{round.total}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3><p>Net</p></ion-col>
+          <ion-col col-3 text-right>{{round.frontNet}}</ion-col>
+          <ion-col col-3 text-right>{{round.backNet}}</ion-col>
+          <ion-col col-3 text-right>{{round.totalNet}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

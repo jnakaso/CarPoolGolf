@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary">Cancel</span>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="submit()">
+        <span ion-text color="primary">Done</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Course</ion-label>
+      <ion-select [ngModel]="match.courseName" (ngModelChange)="changeCourse($event)">
+        <ion-option *ngFor="let course of courses" value="{{course.name}}">{{course.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Date (mm-dd-yyyy)</ion-label>
+      <ion-datetime displayFormat="MMM-DD-YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="match.date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Rating</ion-label>
+      <ion-input type="number" [(ngModel)]="match.rating"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Slope</ion-label>
+      <ion-input type="number" [(ngModel)]="match.slope"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Bet Size</ion-label>
+      <ion-input type="number" [(ngModel)]="match.bet"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

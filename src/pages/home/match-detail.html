@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary">Cancel</span>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="submit()">
+        <span ion-text color="primary">Done</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item (click)="editCourseDetail()">
+      <h2>{{match.courseName}}</h2>
+      <span item-left>{{match.bet | currency: 'USD': true: '1.2-2'}}</span>
+      <p>{{match.date | date: 'MM-dd-yy'}}</p>
+      <p>rating / slope: {{match.rating | number:'1.1-1'}} / {{match.slope | number:'1.0-0'}}</p>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Players
+      <button ion-button round (click)="addRound()" item-right>
+         <ion-icon name="add" ></ion-icon>
+      </button>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let round of match.rounds">
+      <ion-item (click)="selectRound(round)">
+        <h2>{{round.player}}</h2>
+        <span item-left>{{round.hdcp | number:'1.1-1'}}</span>
+        <span item-right>{{round.money | currency: 'USD': true: '1.2-2'}}</span>
+        <p>F: {{round.frontNet | number:'1.1-1'}} B: {{round.backNet | number:'1.1-1'}} T: {{round.totalNet | number:'1.1-1'}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="deleteRound(round)">
+        <ion-icon name="trash"></ion-icon>
+        Delete
+      </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <div padding>
+    <button ion-button color="primary" block (click)="export()">Send It!</button>
+  </div>
+</ion-content>

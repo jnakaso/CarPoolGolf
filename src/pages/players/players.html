@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button round (click)="synch()">
+       <ion-icon name="cloud-download"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Players</ion-title>
+    <ion-buttons end>
+      <button ion-button round (click)="create()">
+       <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="filter"></ion-searchbar>
+  <ion-list>
+    <ion-item-sliding class="" *ngFor="let player of filtered()">
+      <ion-item (click)="select(player)">
+        <h2>{{player.name}}</h2>
+        <span item-right>{{player.hdcp}}</span>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="delete(player)">
+          <ion-icon name="trash"></ion-icon>
+              Delete
+          </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

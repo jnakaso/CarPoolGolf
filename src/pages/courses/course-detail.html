@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary">Cancel</span>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="submit()">
+        <span ion-text color="primary">Done</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Course</ion-label>
+      <ion-input type="string" [(ngModel)]="course.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Rating</ion-label>
+      <ion-input type="number" [(ngModel)]="course.rating"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Slope</ion-label>
+      <ion-input type="number" [(ngModel)]="course.slope"></ion-input>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
