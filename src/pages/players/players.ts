@@ -41,10 +41,7 @@ export class PlayersPage {
   }
 
   refresh = () => {
-    this.playersService.query((items) => {
-      console.log("Found ", items.length);
-      this.players = items;
-    });
+    this.playersService.query(items => this.players = items);
   }
 
   filtered = () => {

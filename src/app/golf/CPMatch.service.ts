@@ -4,8 +4,20 @@ import { DatePipe } from '@angular/common';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { CP_guid, STORAGE_KEY_SEPARATOR, MATCH_PREFIX, Match, Round } from './golf';
 import 'rxjs/add/operator/toPromise';
+import {
+    CP_guid,
+    STORAGE_KEY_SEPARATOR,
+    MATCH_PREFIX,
+    Match,
+    Round
+} from './golf';
+import { CPNassauService } from './CPNassau.service';
+import { CPSocialService } from './CPSocial.service';
+
+export interface MatchCalculator {
+    updateTotals(match: Match);
+}
 
 @Injectable()
 export class CPMatchService {
@@ -15,7 +27,9 @@ export class CPMatchService {
         private datePipe: DatePipe,
         private storage: Storage,
         private socialSharing: SocialSharing,
-        private events: Events) {
+        private events: Events,
+        private nassau: CPNassauService,
+        private social: CPSocialService) {
     }
 
     newInstance = () => {
@@ -25,6 +39,7 @@ export class CPMatchService {
         match.rating = 69.0;
         match.slope = 113
         match.bet = 6;
+        match.type = "NASSAU";
         return match;
     }
 
@@ -95,34 +110,15 @@ export class CPMatchService {
         round.backNet = round.back - (round.hdcp / 2);
     }
 
+    getCalculator = (match: Match): MatchCalculator => {
+        return match.type ?
+            (match.type === "NASSAU") ?
+                this.nassau : this.social
+            : this.nassau;
+    }
+
     updateTotals = (match: Match) => {
-        match.rounds.forEach(r => r.money = 0);
-        let valid = match.rounds.filter(r => r.front && r.back);
-
-        let purse = valid.length * match.bet;
-        let lowTotal = valid
-            .sort((r1: Round, r2: Round) => r1.totalNet - r2.totalNet)
-        if (lowTotal.length > 0) {
-            let lowScore = lowTotal[0].totalNet;
-            let lowWinners = valid.filter(r => r.totalNet == lowScore);
-            lowWinners.forEach(r => r.money = (purse / 3) / lowWinners.length)
-        }
-
-        let lowFront = valid
-            .sort((r1: Round, r2: Round) => r1.frontNet - r2.frontNet)
-        if (lowFront.length > 0) {
-            let lowScore = lowFront[0].frontNet;
-            let lowWinners = valid.filter(r => r.frontNet == lowScore);
-            lowWinners.forEach(r => r.money = r.money + (purse / 3) / lowWinners.length)
-        }
-
-        let lowBack = valid
-            .sort((r1: Round, r2: Round) => r1.backNet - r2.backNet)
-        if (lowBack.length > 0) {
-            let lowScore = lowBack[0].backNet;
-            let lowWinners = valid.filter(r => r.backNet == lowScore);
-            lowWinners.forEach(r => r.money = r.money + (purse / 3) / lowWinners.length)
-        }
+        this.getCalculator(match).updateTotals(match);
     }
 
     export = (match: Match) => {

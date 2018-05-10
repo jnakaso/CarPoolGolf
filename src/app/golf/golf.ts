@@ -1,11 +1,11 @@
 export const MATCH_PREFIX = "CPMatch"
 export const STORAGE_KEY_SEPARATOR: string = ":";
 
-// export const CPGOLF_COURSE_URL = 'http://localhost:8100/assets/test-data/courses.js';
-// export const CPGOLF_PLAYER_URL = 'http://localhost:8100/assets/test-data/players.json';
+export const CPGOLF_COURSE_URL = 'http://localhost:8100/assets/test-data/courses.js';
+export const CPGOLF_PLAYER_URL = 'http://localhost:8100/assets/test-data/players.json';
 
-export const CPGOLF_COURSE_URL =  "http://www.ppcc.com/asgolf-assets/data/courses.js";
-export const CPGOLF_PLAYER_URL =  "http://www.ppcc.com/ppccgolf/players-json.asp";
+// export const CPGOLF_COURSE_URL =  "http://www.ppcc.com/asgolf-assets/data/courses.js";
+// export const CPGOLF_PLAYER_URL =  "http://www.ppcc.com/ppccgolf/players-json.asp";
 
 export function CP_guid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
@@ -25,9 +25,10 @@ export class Match {
     rating: number;
     slope: number;
     bet: number;
-    type: string; // 'NASSAU', 'SOCIAL'
+    type: string;
     rounds: Round[] = [];
 }
+
 
 export class Round {
     player: string;

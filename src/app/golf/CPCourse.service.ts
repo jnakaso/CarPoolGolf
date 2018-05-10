@@ -19,8 +19,7 @@ export class CoursesService {
     synch = (success: Function) => {
         this.clear();
         this.http.get(CPGOLF_COURSE_URL)
-            .toPromise()
-            .then(r => this.load(r.json() as ASCourse[], success));
+            .subscribe(r => this.load(r.json() as ASCourse[], success));
     }
 
     clear = () => {

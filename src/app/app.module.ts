@@ -22,9 +22,11 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { CPMatchService } from './golf/CPMatch.service'
-import { CoursesService } from './golf/CPCourse.service'
-import { PlayersService } from './golf/CPPlayer.service'
+import { CPMatchService } from './golf/CPMatch.service';
+import { CPNassauService } from './golf/CPNassau.service';
+import { CPSocialService } from './golf/CPSocial.service';
+import { CoursesService } from './golf/CPCourse.service';
+import { PlayersService } from './golf/CPPlayer.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import { PlayersService } from './golf/CPPlayer.service'
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(CPGolfApp),
-    IonicStorageModule.forRoot('com.jnaka.cpgolf')
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,7 +65,11 @@ import { PlayersService } from './golf/CPPlayer.service'
     StatusBar,
     SplashScreen,
     SocialSharing,
-    CPMatchService, CoursesService, PlayersService,
+    CPMatchService,
+     CPNassauService,
+     CPSocialService,
+    CoursesService, 
+    PlayersService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

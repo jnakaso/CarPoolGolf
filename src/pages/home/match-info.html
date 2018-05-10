@@ -40,5 +40,14 @@
       <ion-label stacked>Bet Size</ion-label>
       <ion-input type="number" [(ngModel)]="match.bet"></ion-input>
     </ion-item>
+    
+    <ion-item>
+      <ion-label stacked>Type</ion-label>
+      <ion-select [ngModel]="match.type" (ngModelChange)="changeType($event)">
+        <ion-option value="NASSAU">Nassau</ion-option>
+        <ion-option value="SOCIAL">Spread</ion-option>
+      </ion-select>
+    </ion-item>
+
   </ion-list>
 </ion-content>

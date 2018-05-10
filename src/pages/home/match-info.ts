@@ -26,12 +26,17 @@ export class MatchInfo {
     ) {
         this.match = params.get("match");
     }
+
     ionViewWillEnter = () => {
         this.refresh();
     }
+
     refresh = () => {
-        this.coursesService.query((items) => this.courses = items);
+        this.coursesService.query((items: Course[]) => {
+            this.courses = items.sort((c1,c2) => c1.name.localeCompare(c2.name));
+        });
     }
+
     changeCourse = (evt: any) => {
         let found = this.courses.find(c => c.name == evt);
         if (found) {
@@ -40,7 +45,11 @@ export class MatchInfo {
             this.match.slope = found.slope;
         }
     }
-   
+
+    changeType = (evt: any) => {
+        this.match.type = evt;
+    }
+
     submit = () => {
         this.viewController.dismiss(this.match);
     }
